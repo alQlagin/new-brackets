@@ -4,17 +4,14 @@ module.exports = function check(str, bracketsConfig) {
   for (let i = 0; i < str.length; i++) {
     const currentSym = str[i];
     let currentNode = nodesStack[nodesStack.length - 1];
-    if (currentNode) {
-      if (currentSym === currentNode.close) {
-        nodesStack.pop();
-        continue;
-      }
+    if (currentNode && currentSym === currentNode.close) {
+      nodesStack.pop();
+      continue;
     }
     if (!config.has(currentSym)) return false;
     currentNode = {
       open: currentSym,
-      close: config.get(currentSym),
-      children: []
+      close: config.get(currentSym)
     };
     nodesStack.push(currentNode);
   }
